@@ -1,4 +1,4 @@
-# 🎣 Catfish Catcher — Tinder Training Game
+# 🎣 Catfish Guessing — Tinder Training Game
 
 A satirical, fast-paced dating app simulator designed to test your instincts against online scammers, bots, and catfish profiles built in a single HTML file with CSS and JavaScript.
 
