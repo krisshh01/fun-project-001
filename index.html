@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Catfish Catcher 🎣</title>
+    <title>Catfish Guessing 🎣</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
@@ -44,255 +44,100 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            transition: all 0.3s;
         }
 
         .fake-ad.left { left: 3%; background: #ffff00; }
         .fake-ad.right { right: 3%; background: #ff00ff; border-color: #00ff00; }
 
-        .fake-ad h3 {
-            font-size: 1.8rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            animation: flashWarning 0.3s infinite alternate;
-            margin-bottom: 10px;
+        .fake-ad.corner-ad {
+            display: none; 
+            top: auto;
+            bottom: 15px;
+            left: 15px;
+            transform: none;
+            width: 170px; 
+            padding: 10px;
+            background: #ff0000;
+            color: #ffff00;
+            border-color: #ffff00;
+            border-width: 4px;
+            z-index: 100;
         }
 
-        .fake-ad.right h3 { animation: flashNeon 0.2s infinite alternate; }
+        .fake-ad.corner-ad h3 { font-size: 1.1rem; margin-bottom: 5px; }
+        .fake-ad.corner-ad p { font-size: 0.85rem; margin: 5px 0 10px 0; }
+        .fake-ad.corner-ad .fake-ad-btn { padding: 6px 12px; font-size: 0.9rem; border-width: 3px; }
 
-        .fake-ad p {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin: 15px 0;
-            line-height: 1.3;
+        /* DYNAMIC STATIC ADS CSS (They just sit there and multiply) */
+        .fake-ad.static-ad {
+            top: 0;
+            left: 0;
+            transform: none;
+            width: 200px;
+            border: 4px solid #ffffff;
+            padding: 10px;
+            z-index: 9999; 
+            border-style: solid;
         }
         
+        .fake-ad.static-ad h3 { font-size: 1.2rem; margin: 0 0 5px 0; animation: flashWarning 0.1s infinite alternate; }
+        .fake-ad.static-ad p { font-size: 0.9rem; margin: 5px 0; line-height: 1.2; text-shadow: 1px 1px 0px #000; }
+        .fake-ad.static-ad .fake-ad-btn { padding: 8px 15px; font-size: 1rem; border-width: 2px; }
+        
+        .fake-ad h3 { font-size: 1.8rem; font-weight: 900; text-transform: uppercase; animation: flashWarning 0.3s infinite alternate; margin-bottom: 10px; }
+        .fake-ad.right h3 { animation: flashNeon 0.2s infinite alternate; }
+        .fake-ad p { font-size: 1.2rem; font-weight: bold; margin: 15px 0; line-height: 1.3; }
         .fake-ad.right p { color: white; text-shadow: 2px 2px 0 #000; }
+        .fake-ad.corner-ad p { color: yellow; }
 
-        .fake-ad-img {
-            width: 100%;
-            height: 150px;
-            object-fit: contain; 
-            background-color: #000; 
-            border: 3px solid black;
-            margin-bottom: 15px;
-        }
-
-        .fake-ad-btn {
-            display: inline-block;
-            background: #00ff00;
-            color: black;
-            padding: 15px 25px;
-            font-size: 1.4rem;
-            font-weight: 900;
-            border-radius: 10px;
-            border: 4px solid black;
-            animation: shakeBtn 0.1s infinite alternate;
-            text-transform: uppercase;
-        }
-
+        .fake-ad-img { width: 100%; height: 150px; object-fit: contain; background-color: #000; border: 3px solid black; margin-bottom: 15px; transition: opacity 0.2s ease-in-out; }
+        .fake-ad-btn { display: inline-block; background: #00ff00; color: black; padding: 15px 25px; font-size: 1.4rem; font-weight: 900; border-radius: 10px; border: 4px solid black; animation: shakeBtn 0.1s infinite alternate; text-transform: uppercase; }
         .fake-ad.right .fake-ad-btn { background: #ffff00; animation: pulseBtn 0.3s infinite alternate; }
+        .fake-ad.corner-ad .fake-ad-btn { background: yellow; color: red; animation: pulseBtn 0.1s infinite alternate; }
 
         @keyframes flashWarning { 0% { color: red; text-shadow: 0 0 10px yellow; } 100% { color: blue; text-shadow: 0 0 10px white; } }
         @keyframes flashNeon { 0% { color: #00ff00; text-shadow: 0 0 15px white; transform: scale(1); } 100% { color: #ffff00; text-shadow: 0 0 25px red; transform: scale(1.1); } }
         @keyframes shakeBtn { 0% { transform: translateX(-3px) rotate(-2deg); } 100% { transform: translateX(3px) rotate(2deg); } }
         @keyframes pulseBtn { 0% { transform: scale(0.95); } 100% { transform: scale(1.1); } }
 
-        @media (max-width: 1050px) { .fake-ad { display: none; } }
+        @media (max-width: 1050px) { .fake-ad.left, .fake-ad.right { display: none; } }
+
         /* ---------------------------- */
 
-        .app-container {
-            width: 100%;
-            max-width: 400px;
-            height: 96dvh; 
-            max-height: 800px;
-            background: #ffffff;
-            border-radius: 28px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-            z-index: 5; 
-        }
-
-        .header {
-            padding: 15px 20px;
-            text-align: center;
-            background: #fff;
-            flex-shrink: 0; 
-            z-index: 2;
-        }
-
-        .header h1 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, #fe3c72, #ff655b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-        }
-
+        .app-container { width: 100%; max-width: 400px; height: 96dvh; max-height: 800px; background: #ffffff; border-radius: 28px; box-shadow: 0 20px 50px rgba(0,0,0,0.4); display: flex; flex-direction: column; position: relative; overflow: hidden; z-index: 5; }
+        .header { padding: 15px 20px; text-align: center; background: #fff; flex-shrink: 0; z-index: 2; }
+        .header h1 { font-size: 1.4rem; font-weight: 700; background: linear-gradient(45deg, #fe3c72, #ff655b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
         .header-stats { display: flex; justify-content: space-between; align-items: center; }
-
-        .stat-badge {
-            background: #f0f2f5;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #444;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
-        }
-
+        .stat-badge { background: #f0f2f5; padding: 6px 14px; border-radius: 20px; font-size: 0.9rem; font-weight: 600; color: #444; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02); }
         .lives-board { letter-spacing: 2px; }
 
-        .card-area {
-            flex: 1; 
-            min-height: 0; 
-            padding: 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            background: #f9f9f9;
-        }
+        .card-area { flex: 1; min-height: 0; padding: 15px; display: flex; justify-content: center; align-items: center; position: relative; background: #f9f9f9; }
+        .card { width: 100%; height: 100%; background: #111; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.15); display: flex; flex-direction: column; position: relative; transition: transform 0.3s ease; cursor: grab; user-select: none; }
+        .card:active { cursor: grabbing; }
 
-        .card {
-            width: 100%;
-            height: 100%;
-            background: #111;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            transition: transform 0.3s ease;
-        }
-
-        .profile-img { width: 100%; height: 100%; object-fit: cover; object-position: center top; position: absolute; top: 0; left: 0; z-index: 1; }
-
-        .profile-info {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 100px 20px 20px 20px;
-            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 40%, transparent 100%);
-            z-index: 2;
-            color: white;
-        }
-
+        .profile-img { width: 100%; height: 100%; object-fit: cover; object-position: center top; position: absolute; top: 0; left: 0; z-index: 1; pointer-events: none; }
+        .profile-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: 100px 20px 20px 20px; background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 40%, transparent 100%); z-index: 2; color: white; pointer-events: none; }
         .profile-info h2 { font-size: 1.6rem; font-weight: 700; margin-bottom: 5px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
         .profile-info p { font-size: 0.95rem; font-weight: 400; line-height: 1.4; color: #eee; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
 
         .controls { display: flex; justify-content: space-evenly; padding: 20px; background: white; flex-shrink: 0; z-index: 2; }
-
-        .btn {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            border: none;
-            cursor: pointer;
-            font-size: 2rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: white;
-            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
+        .btn { width: 70px; height: 70px; border-radius: 50%; border: none; cursor: pointer; font-size: 2rem; display: flex; justify-content: center; align-items: center; background: white; transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .btn-catfish { color: #ff4b4b; border: 2px solid #ff4b4b; box-shadow: 0 8px 20px rgba(255, 75, 75, 0.25); }
         .btn-real { color: #4cd964; border: 2px solid #4cd964; box-shadow: 0 8px 20px rgba(76, 217, 100, 0.25); }
 
         @media (hover: hover) { .btn:hover { transform: scale(1.1); } }
         .btn:active { transform: scale(0.9) !important; }
 
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px); 
-            -webkit-backdrop-filter: blur(12px);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
-            z-index: 10;
-            display: none;
-        }
-
+        .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; z-index: 10; display: none; }
         .overlay h2 { font-size: 2rem; margin-bottom: 10px; font-weight: 700; }
-
-        .verdict-gif {
-            width: 160px;
-            height: 140px;
-            object-fit: cover;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            border: 3px solid #ff4b4b;
-            display: none;
-        }
-
-        .overlay p {
-            font-size: 0.95rem;
-            margin-bottom: 15px;
-            color: #333;
-            line-height: 1.5;
-            font-weight: 500;
-            background: rgba(255,255,255,0.9);
-            padding: 12px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-
-        .roast-text {
-            display: block;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px dashed #ccc;
-            color: #d32f2f;
-            font-weight: 700;
-            font-style: italic;
-            font-size: 1rem;
-        }
-
-        .overlay-btn {
-            padding: 12px 30px;
-            background: linear-gradient(45deg, #fe3c72, #ff655b);
-            color: white;
-            border: none;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 8px 20px rgba(254, 60, 114, 0.35);
-            width: 85%;
-            max-width: 260px;
-            transition: transform 0.2s;
-        }
-        
+        .verdict-gif { width: 160px; height: 140px; object-fit: cover; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); border: 3px solid #ff4b4b; display: none; }
+        .overlay p { font-size: 0.95rem; margin-bottom: 15px; color: #333; line-height: 1.5; font-weight: 500; background: rgba(255,255,255,0.9); padding: 12px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .roast-text { display: block; margin-top: 10px; padding-top: 10px; border-top: 1px dashed #ccc; color: #d32f2f; font-weight: 700; font-style: italic; font-size: 1rem; }
+        .overlay-btn { padding: 12px 30px; background: linear-gradient(45deg, #fe3c72, #ff655b); color: white; border: none; border-radius: 30px; font-size: 1.1rem; font-weight: 700; cursor: pointer; box-shadow: 0 8px 20px rgba(254, 60, 114, 0.35); width: 85%; max-width: 260px; transition: transform 0.2s; }
         .overlay-btn:active { transform: scale(0.95); }
         .overlay-btn-next { background: linear-gradient(45deg, #4a90e2, #63a4ff); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.35); }
-
-        .rank-display {
-            font-size: 1.4rem;
-            color: #fe3c72;
-            font-weight: 700;
-            margin: 15px 0 10px 0;
-            padding: 12px 20px;
-            border: 3px solid #fe3c72;
-            border-radius: 15px;
-            background: #fff;
-            box-shadow: 0 8px 20px rgba(254, 60, 114, 0.15);
-        }
-
+        .rank-display { font-size: 1.4rem; color: #fe3c72; font-weight: 700; margin: 15px 0 10px 0; padding: 12px 20px; border: 3px solid #fe3c72; border-radius: 15px; background: #fff; box-shadow: 0 8px 20px rgba(254, 60, 114, 0.15); }
         .final-roast { font-size: 1rem; font-style: italic; color: #666; margin-bottom: 25px; padding: 0 10px; }
     </style>
 </head>
@@ -302,23 +147,29 @@
     <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="fake-ad left">
         <h3>🚨 WARNING! 🚨</h3>
         <p>HOT SINGLES ARE EXACTLY 10 KM AWAY FROM YOU RIGHT NOW!</p>
-        <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=300&q=80" alt="Hot Single" class="fake-ad-img">
+        <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=300&q=80" alt="Hot Single" class="fake-ad-img" id="hotSingleImg" draggable="false" referrerpolicy="no-referrer">
         <span class="fake-ad-btn">MEET THEM!</span>
     </a>
 
-    <!-- FAKE SKETCHY AD 2 (Fixed Banana Image!) -->
+    <!-- FAKE SKETCHY AD 2 -->
     <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="fake-ad right">
         <h3>💊 MAKE IT BIGGER! 💊</h3>
-        <p>DOCTORS HATE HIM! Grow 5 inches in just 2 weeks with this ONE WEIRD TRICK!</p>
-        <!-- Replaced with an ultra-reliable Wikimedia image link -->
-        <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg" alt="Weird Trick" class="fake-ad-img">
+        <p>DOCTORS HATE HIM! Grow 5 inches with ONE WEIRD TRICK!</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg" alt="Weird Trick" class="fake-ad-img" draggable="false" referrerpolicy="no-referrer">
         <span class="fake-ad-btn">CLICK TO GROW!</span>
+    </a>
+    
+    <!-- FAKE SKETCHY AD 3 (Streak 5) -->
+    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="fake-ad corner-ad" id="ad3">
+        <h3>⚠️ VIRUS DETECTED ⚠️</h3>
+        <p>Click here to scan your hard drive immediately!</p>
+        <span class="fake-ad-btn">SCAN NOW</span>
     </a>
 
     <!-- MAIN GAME CONTAINER -->
     <div class="app-container">
         <div class="header">
-            <h1>Catfish Catcher 🎣</h1>
+            <h1>Catfish Guessing 🎣</h1>
             <div class="header-stats">
                 <div class="stat-badge">Streak: <span id="score">0</span></div>
                 <div class="stat-badge lives-board" id="lives">❤️❤️❤️</div>
@@ -327,7 +178,7 @@
 
         <div class="card-area">
             <div class="card" id="profileCard">
-                <img src="" alt="Profile" class="profile-img" id="img">
+                <img src="" alt="Profile" class="profile-img" id="img" draggable="false" referrerpolicy="no-referrer">
                 <div class="profile-info">
                     <h2 id="nameAge">Loading...</h2>
                     <p id="bio">Please wait...</p>
@@ -342,9 +193,7 @@
 
         <div class="overlay" id="verdictScreen">
             <h2 id="verdictTitle" style="color: #ff4b4b;">Ouch! ❌</h2>
-            
-            <img id="verdictGif" class="verdict-gif" src="" alt="Fail Meme">
-            
+            <img id="verdictGif" class="verdict-gif" src="" alt="Fail Meme" draggable="false" referrerpolicy="no-referrer">
             <p id="verdictMessage">Reason goes here.</p>
             <button class="overlay-btn overlay-btn-next" onclick="nextProfile()">Keep Swiping ➡️</button>
         </div>
@@ -377,34 +226,60 @@
             audioEl.play().catch(e => console.log("Audio play blocked by browser:", e));
         }
 
-        // --- FUNNY FAIL GIFS ---
         const failGifs = [
-            "https://media.giphy.com/media/x0npYExCGOZeo/giphy.gif", // Clown putting on makeup
-            "https://media.giphy.com/media/3o6wrebnKWc3N3sN9K/giphy.gif", // Facepalm
-            "https://media.giphy.com/media/jp313yHGzTDBbw5Tg6/giphy.gif", // Bruh Cat
-            "https://media.giphy.com/media/OPU6wzx8JrHna/giphy.gif" // Crying guy
+            "https://media.giphy.com/media/x0npYExCGOZeo/giphy.gif", 
+            "https://media.giphy.com/media/3o6wrebnKWc3N3sN9K/giphy.gif", 
+            "https://media.giphy.com/media/jp313yHGzTDBbw5Tg6/giphy.gif", 
+            "https://media.giphy.com/media/OPU6wzx8JrHna/giphy.gif" 
+        ];
+
+        const hotSingleImages = [
+            "https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=300&q=80", 
+            "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=300&q=80", 
+            "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?w=300&q=80", 
+            "https://images.unsplash.com/photo-1500336624523-d727130c3328?w=300&q=80", 
+            "https://images.unsplash.com/photo-1521119989659-a83eee488004?w=300&q=80", 
+            "https://images.unsplash.com/photo-1554151228-14d9def656e4?w=300&q=80"  
         ];
 
         const baseTemplates = [
-            // --- THE REAL GIRLS ---
-            { name: "Sarah", age: 24, img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&q=80", bio: "I'm literally just here to find someone to go to concerts with. Please don't try to sell me crypto, I'm already broke from buying festival tickets.", isCatfish: false, reason: "Sarah mentions crypto, but in a self-aware, joking way. Real people often vent about dating app scammers in their bios." },
-            { name: "Emily", age: 27, img: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500&q=80", bio: "Travel blogger & photographer. Always on a plane. Drop your best travel recommendation below. (And no, I don't want to join your forex team).", isCatfish: false, reason: "High-quality travel photos can look fake, but her specific, defensive humor proves she's a real person exhausted by scammers." },
-            { name: "Jess", age: 25, img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&q=80", bio: "Software engineer. I promise I can fix your Wi-Fi, but I will charge you in tacos. Mostly just looking for a gym buddy.", isCatfish: false, reason: "She mentions 'charging' you, but as a relatable joke. Tacos are the universal dating app currency." },
-            { name: "Chloe", age: 29, img: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&q=80", bio: "I rarely check this app. If we match, just tell me where we're getting dinner. I am unapologetically high maintenance about my pasta.", isCatfish: false, reason: "'I rarely check this app' is a common bot phrase, but she follows it up with a very human, quirky demand about pasta, not an IG link." },
-            { name: "Mia", age: 23, img: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=500&q=80", bio: "I have a master's degree but I still push on 'pull' doors. Seeking someone who can parallel park for me.", isCatfish: false, reason: "Self-deprecating humor and highly specific real-world struggles are strong signs of a real human." },
-            { name: "Lily", age: 26, img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&q=80", bio: "Professional model, amateur gamer. Yes, my photos are heavily edited. No, I don't want a sugar daddy. Let's just play Helldivers.", isCatfish: false, reason: "Disarms the 'too pretty to be real' suspicion by openly and bluntly acknowledging her job and shutting down scammers." },
-            { name: "Ava", age: 28, img: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=500&q=80", bio: "Not looking for a pen pal. Let's grab coffee today. If you take more than 24 hours to reply, I'm unmatching.", isCatfish: false, reason: "A bit aggressive, but this is a very typical, genuine human frustration with dating app flakiness." },
-            { name: "Zoe", age: 25, img: "https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=500&q=80", bio: "I run my own online business. Send me $5 for coffee. Kidding! But seriously, let's get a drink this weekend.", isCatfish: false, reason: "Joking about money is risky, but the context makes it clearly a playful icebreaker leading to a real date." },
+            // LEVEL 1: EASY 
+            { difficulty: 1, name: "Sarah", age: 24, img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&q=80", bio: "Nursing student just looking for a guy who loves dogs and pizza.", isCatfish: false, reason: "Simple, highly specific local hobbies are usually a safe bet." },
+            { difficulty: 1, name: "Emily", age: 27, img: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500&q=80", bio: "Hiker, baker, and professional napper. Let's get coffee.", isCatfish: false, reason: "Boring but structurally perfect for a real human." },
+            { difficulty: 1, name: "Jessica", age: 25, img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&q=80", bio: "Kindergarten teacher. If you can't handle my puns, swipe left.", isCatfish: false, reason: "Dad-joke warnings are standard genuine profile material." },
+            { difficulty: 1, name: "Chloe", age: 29, img: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&q=80", bio: "I try to keep my houseplants alive. Mostly failing.", isCatfish: false, reason: "Self-deprecating humor about mundane things is a green flag." },
+            { difficulty: 1, name: "Niran", age: 23, img: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=500&q=80", bio: "Hello dear, I am currently stuck overseas and my bank account is frozen. If you send me $500 in iTunes gift cards, I will repay you $50,000.", isCatfish: true, reason: "The golden rule: Banks do not accept Apple Store credit!" },
+            { difficulty: 1, name: "Victoria", age: 24, img: "https://images.unsplash.com/photo-1500336624523-d727130c3328?w=500&q=80", bio: "I just inherited a gold mine in my home country but I need help paying the customs fee. Will marry whoever helps me.", isCatfish: true, reason: "This is a classic Advance-Fee (419) scam. Nobody gives away a literal gold mine on a dating app." },
+            { difficulty: 1, name: "Kimi", age: 24, img: "https://images.unsplash.com/photo-1513207565459-d7f36bfa1222?w=500&q=80", bio: "Looking for an honest sugar baby. Just send a $50 clearance fee to my cashapp so I can trust you.", isCatfish: true, reason: "Sugar scams always ask YOU to send a 'clearance fee' first." },
+            { difficulty: 1, name: "Aisha", age: 26, img: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=500&q=80", bio: "I am a princess in exile. I have 10 million dollars trapped in a trust fund. I need a US citizen to help me transfer it.", isCatfish: true, reason: "The oldest trick in the internet playbook." },
 
-            // --- THE CATFISH ---
-            { name: "Bella", age: 22, img: "https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=500&q=80", bio: "Living life to the fullest! ✨ I love traveling and fine dining. I'm not on here much, so shoot me a message on IG @bella_luxx99 to see if we vibe.", isCatfish: true, reason: "Seems normal at first, but redirecting to an Instagram with a 'luxx' handle immediately is a classic follower-farming bot." },
-            { name: "Sophia", age: 26, img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&q=80", bio: "Fintech consultant & blockchain enthusiast. I believe in working smart, not hard. Always looking to network with like-minded individuals building their portfolios.", isCatfish: true, reason: "Using words like 'network' and 'portfolios' on a dating app is the modern pig-butchering scammer's introduction." },
-            { name: "Niran", age: 23, img: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=500&q=80", bio: "Just moved to your city for a modeling contract! ✈️ My Tinder is acting so weird and deleting matches. Add my WhatsApp +44 7911 123456 so we don't lose touch.", isCatfish: true, reason: "The 'app is glitching' excuse to move you to WhatsApp (often with an international area code) is a massive scammer red flag." },
-            { name: "Victoria", age: 24, img: "https://images.unsplash.com/photo-1500336624523-d727130c3328?w=500&q=80", bio: "Originally from overseas, now managing my family's import business here. Seeking a trustworthy and honest man to share my success with.", isCatfish: true, reason: "'Trustworthy and honest man to share my success with' is the exact scripted hook for an advance-fee romance scam." },
-            { name: "Lexi", age: 21, img: "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?w=500&q=80", bio: "Fitness enthusiast. Just a fun girl looking for some excitement. 🌶️ Bored at home right now, check my linktree to see what I'm up to.", isCatfish: true, reason: "She's not looking for a date. 'Bored at home' combined with a link is an auto-swiping bot selling premium content." },
-            { name: "Madison", age: 27, img: "https://images.unsplash.com/photo-1521119989659-a83eee488004?w=500&q=80", bio: "Currently serving overseas. It gets incredibly lonely out here. Just looking for a genuine connection with someone back home before my deployment ends.", isCatfish: true, reason: "Phase 1 of a Military Romance scam. They build trust for weeks before suddenly needing funds for a 'secure comms line'." },
-            { name: "Kimi", age: 24, img: "https://images.unsplash.com/photo-1513207565459-d7f36bfa1222?w=500&q=80", bio: "College student studying nursing. I'm very mature for my age. Looking for an older, established gentleman who knows how to treat a lady right and spoil her.", isCatfish: true, reason: "The setup for a sugar scam. Once you match, she will ask for a 'loyalty fee' or 'account verification' via CashApp." },
-            { name: "Elena", age: 28, img: "https://images.unsplash.com/photo-1554151228-14d9def656e4?w=500&q=80", bio: "Entrepreneur. I run my own e-commerce stores. I love spontaneous trips, good wine, and talking about market trends. What's your biggest investment?", isCatfish: true, reason: "Asking about 'market trends' and 'your biggest investment' right in the bio is how crypto scammers profile your wealth." }
+            // LEVEL 2: MEDIUM 
+            { difficulty: 2, name: "Jess", age: 25, img: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=500&q=80", bio: "Software engineer. I promise I can fix your Wi-Fi, but I will charge you in tacos.", isCatfish: false, reason: "She mentions 'charging' you, but as a relatable joke. Tacos are the universal dating app currency." },
+            { difficulty: 2, name: "Zoe", age: 25, img: "https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=500&q=80", bio: "I run my own online business. Send me $5 for coffee. Kidding! But seriously, let's get a drink this weekend.", isCatfish: false, reason: "Joking about money is risky, but the context makes it clearly a playful icebreaker leading to a real date." },
+            { difficulty: 2, name: "Lily", age: 26, img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&q=80", bio: "Professional model, amateur gamer. Yes, my photos are heavily edited. Let's just play Helldivers.", isCatfish: false, reason: "Disarms the 'too pretty to be real' suspicion by openly and bluntly acknowledging her job." },
+            { difficulty: 2, name: "Rachel", age: 28, img: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=500&q=80", bio: "Not looking for a pen pal. Let's grab coffee today. If you take more than 24 hours to reply, I'm unmatching.", isCatfish: false, reason: "A bit aggressive, but this is a very typical, genuine human frustration with dating app flakiness." },
+            { difficulty: 2, name: "Bella", age: 22, img: "https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=500&q=80", bio: "Living life to the fullest! ✨ I love traveling and fine dining. I'm not on here much, so shoot me a message on IG @bella_luxx99 to see if we vibe.", isCatfish: true, reason: "Seems normal at first, but redirecting to an Instagram with a 'luxx' handle immediately is a classic follower-farming bot." },
+            { difficulty: 2, name: "Lexi", age: 21, img: "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?w=500&q=80", bio: "Fitness enthusiast. Just a fun girl looking for some excitement. 🌶️ Bored at home right now, check my linktree to see what I'm up to.", isCatfish: true, reason: "She's not looking for a date. 'Bored at home' combined with a link is an auto-swiping bot selling premium content." },
+            { difficulty: 2, name: "Madison", age: 27, img: "https://images.unsplash.com/photo-1521119989659-a83eee488004?w=500&q=80", bio: "Currently serving overseas. It gets incredibly lonely out here. Just looking for a genuine connection with someone back home before my deployment ends.", isCatfish: true, reason: "Phase 1 of a Military Romance scam. They build trust for weeks before suddenly needing funds for a 'secure comms line'." },
+            { difficulty: 2, name: "Elena", age: 28, img: "https://images.unsplash.com/photo-1554151228-14d9def656e4?w=500&q=80", bio: "My phone broke and I am locked out of my banking app! Can you please venmo me $40 for an uber home? I'll pay you back double tomorrow.", isCatfish: true, reason: "The 'Stranded' scam. Using an AI-perfect portrait to guilt-trip strangers into sending quick cash." },
+
+            // LEVEL 3: HARD 
+            { difficulty: 3, name: "Ava", age: 24, img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=500&q=80", bio: "If you start the conversation with 'hey', I am blocking you. Tell me your favorite conspiracy theory.", isCatfish: false, reason: "Intense vetting requirements usually mean she's tired of bots herself." },
+            { difficulty: 3, name: "Morgan", age: 27, img: "https://images.unsplash.com/photo-1557053910-d9eadeed1c58?w=500&q=80", bio: "Yes, I know I look like a bot. No, I will not add your WhatsApp. I just want to go to a museum.", isCatfish: false, reason: "Highly self-aware profile addressing the exact red flags you're looking for." },
+            { difficulty: 3, name: "Riley", age: 23, img: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=500&q=80", bio: "I don't really know what to put here. Just ask me.", isCatfish: false, reason: "Lazy? Yes. A bot? No. Bots usually have highly optimized, link-heavy bios." },
+            { difficulty: 3, name: "Taylor", age: 29, img: "https://images.unsplash.com/photo-1514315384763-ba401779410f?w=500&q=80", bio: "I am unapologetically high maintenance about my pasta. Deal with it.", isCatfish: false, reason: "Weird flexes about food are a hallmark of genuine human profiles." },
+            { difficulty: 3, name: "Sophia", age: 26, img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&q=80", bio: "Fintech consultant & blockchain enthusiast. I believe in working smart, not hard. Always looking to network with like-minded individuals building their portfolios.", isCatfish: true, reason: "Using words like 'network' and 'portfolios' on a dating app is the modern pig-butchering scammer's introduction." },
+            { difficulty: 3, name: "Maya", age: 25, img: "https://images.unsplash.com/photo-1509967419530-da38b4704bc6?w=500&q=80", bio: "I don't get notifications on here! Tinder is acting so glitchy today. Add my WhatsApp +44 7911 123456 so we don't lose touch.", isCatfish: true, reason: "The 'app is glitching' excuse to move you to WhatsApp (with a sketchy area code) is a massive red flag." },
+            { difficulty: 3, name: "Anna", age: 28, img: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=500&q=80", bio: "Entrepreneur. I love spontaneous trips, good wine, and talking about market trends. What's your biggest investment?", isCatfish: true, reason: "Asking about 'market trends' and 'your biggest investment' right in the bio is how crypto scammers profile your wealth." },
+            { difficulty: 3, name: "Harper", age: 22, img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&q=80", bio: "Just moved here for modeling! Looking for a cute tour guide. But for my safety, please verify yourself on this completely random background check link first.", isCatfish: true, reason: "The 'Verification Scam'. The link will ask for your credit card to 'prove your identity'." },
+
+            // LEVEL 4: EXTREME (DIABOLICAL)
+            { difficulty: 4, name: "Amanda", age: 26, img: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=500&q=80", bio: "If you don't have a boat, don't bother. Send me a super like so I know you're serious. IG: @amanda_xo", isCatfish: false, reason: "She's not a bot, she's just incredibly entitled and farming Instagram followers. Unfortunately, a real human." },
+            { difficulty: 4, name: "Sam", age: 24, img: "https://images.unsplash.com/photo-1514315384763-ba401779410f?w=500&q=80", bio: "Slightly addicted to iced coffee and spending too much money at Target. What's your worst habit?", isCatfish: true, reason: "Bots now scrape highly relatable, mundane bios and use stolen candid selfies to look perfectly average." },
+            { difficulty: 4, name: "Lauren", age: 29, img: "https://images.unsplash.com/photo-1557053910-d9eadeed1c58?w=500&q=80", bio: "Finance girlie. I can probably fix your portfolio over a glass of wine. Looking for a high-value man.", isCatfish: false, reason: "Actually a real finance bro-ette looking for a specific lifestyle, not a pig-butchering scammer." },
+            { difficulty: 4, name: "Megan", age: 23, img: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&q=80", bio: "Swipe right if you're going to actually plan a date. So tired of pen pals and fake profiles on here.", isCatfish: true, reason: "Scammers use reverse-psychology to sound frustrated with dating apps, making them seem authentic." },
+            { difficulty: 4, name: "Kayla", age: 21, img: "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?w=500&q=80", bio: "CashApp me $5 and see what happens 😇", isCatfish: false, reason: "Looks like a scam, but this is an actual, cynical trend real people do on Tinder to farm $5 from desperate swipers." },
+            { difficulty: 4, name: "Olivia", age: 25, img: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=500&q=80", bio: "Honestly just looking for someone to text while I'm at work. Hit me up.", isCatfish: true, reason: "Simple, relatable, but used by romance scammers to build a quick texting habit before asking for favors." }
         ];
 
         const catfishRoasts = [
@@ -420,10 +295,12 @@
 
         const failTitles = ["Ouch! ❌", "Busted! 🛑", "Gotcha! 🎣", "Fooled! 🤡", "Yikes! 😬", "Tricked! 💔"];
 
-        let currentProfiles = [];
-        let currentIndex = 0;
         let score = 0;
         let lives = 3;
+        
+        let currentDifficulty = 1;
+        let currentPool = [];
+        let currentProfile = null;
         
         const imgEl = document.getElementById('img');
         const nameAgeEl = document.getElementById('nameAge');
@@ -442,6 +319,41 @@
         const finalRank = document.getElementById('finalRank');
         const finalRoast = document.getElementById('finalRoast');
 
+        const ad3 = document.getElementById('ad3');
+        const hotSingleImg = document.getElementById('hotSingleImg');
+
+        // Dynamic STATIC Ads System (They just sit there and multiply)
+        let staticAds = [];
+
+        function spawnStaticAd() {
+            const adEl = document.createElement('a');
+            adEl.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+            adEl.target = "_blank";
+            adEl.className = "fake-ad static-ad";
+            
+            // 4 Distinct types of popups
+            const adTypes = [
+                { bg: "#ff0000", border: "#ffffff", title: "🚨 VIRUS! 🚨", desc: "Your hard drive is being deleted!", btn: "FIX NOW" },
+                { bg: "#ffff00", border: "#ff0000", title: "🎁 YOU WON! 🎁", desc: "Claim your free iPhone 15 Pro!", btn: "CLAIM" },
+                { bg: "#ff00ff", border: "#00ff00", title: "💬 1 MESSAGE", desc: "Ashley (2 miles away) sent a pic!", btn: "VIEW" },
+                { bg: "#0000ff", border: "#ffff00", title: "⚠️ SYSTEM 32 ⚠️", desc: "Memory failure! Download more RAM!", btn: "DOWNLOAD" }
+            ];
+            
+            let type = adTypes[Math.floor(Math.random() * adTypes.length)];
+            
+            adEl.innerHTML = `<h3 style="color: ${type.border};">${type.title}</h3><p style="color: white; font-size: 0.95rem;">${type.desc}</p><span class="fake-ad-btn" style="padding: 5px 15px; font-size: 1rem;">${type.btn}</span>`;
+            adEl.style.backgroundColor = type.bg;
+            adEl.style.borderColor = type.border;
+            
+            let startX = Math.random() * (window.innerWidth - 220);
+            let startY = Math.random() * (window.innerHeight - 150);
+            adEl.style.left = startX + 'px';
+            adEl.style.top = startY + 'px';
+            
+            document.body.appendChild(adEl);
+            staticAds.push(adEl);
+        }
+
         function shuffle(array) {
             let cur = array.length, rand;
             while (cur != 0) {
@@ -452,14 +364,42 @@
             return array;
         }
 
-        function generateDeck() {
-            let deck = JSON.parse(JSON.stringify(baseTemplates));
-            return shuffle(deck);
+        function refillPool(difficultyLevel) {
+            let templates = baseTemplates.filter(p => p.difficulty === difficultyLevel);
+            return shuffle(JSON.parse(JSON.stringify(templates)));
+        }
+
+        function getNextProfile() {
+            let targetDifficulty = 1;
+            if (score >= 4) targetDifficulty = 2;
+            if (score >= 8) targetDifficulty = 3;
+            if (score >= 12) targetDifficulty = 4;
+
+            if (currentDifficulty !== targetDifficulty || currentPool.length === 0) {
+                currentDifficulty = targetDifficulty;
+                currentPool = refillPool(currentDifficulty);
+            }
+            return currentPool.pop();
+        }
+
+        function updateAds() {
+            ad3.style.display = (score >= 5) ? 'flex' : 'none';
+            
+            let hotIndex = Math.floor(score / 3);
+            if (hotIndex >= hotSingleImages.length) {
+                hotIndex = hotSingleImages.length - 1; 
+            }
+            hotSingleImg.style.opacity = 0; 
+            setTimeout(() => {
+                hotSingleImg.src = hotSingleImages[hotIndex];
+                hotSingleImg.style.opacity = 1;
+            }, 200);
         }
 
         function updateHUD() {
             scoreEl.innerText = score;
             livesEl.innerText = '❤️'.repeat(lives) + '🖤'.repeat(3 - lives);
+            updateAds(); 
         }
 
         function getRankString(finalScore) {
@@ -481,6 +421,13 @@
         function startGame() {
             score = 0;
             lives = 3;
+            currentDifficulty = 1;
+            currentPool = [];
+            
+            // Clear all the static spam ads on restart
+            staticAds.forEach(ad => ad.remove());
+            staticAds = [];
+            
             updateHUD();
             gameOverScreen.style.display = 'none';
             verdictScreen.style.display = 'none';
@@ -489,33 +436,31 @@
             card.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
             card.style.transform = 'translateX(0) rotate(0)';
             
-            currentProfiles = generateDeck();
-            currentIndex = 0;
-            
             loadProfile();
         }
 
         function loadProfile() {
-            if (currentIndex >= currentProfiles.length) {
-                currentProfiles = currentProfiles.concat(generateDeck());
-            }
-
-            const p = currentProfiles[currentIndex];
-            imgEl.src = p.img;
-            nameAgeEl.innerText = `${p.name}, ${p.age}`;
-            bioEl.innerText = p.bio;
+            currentProfile = getNextProfile();
+            imgEl.src = currentProfile.img;
+            nameAgeEl.innerText = `${currentProfile.name}, ${currentProfile.age}`;
+            bioEl.innerText = currentProfile.bio;
             
             card.style.transform = 'scale(0.95)';
             setTimeout(() => card.style.transform = 'scale(1)', 150);
         }
 
-        function makeGuess(guessedCatfish) {
-            const p = currentProfiles[currentIndex];
+        function makeGuess(guessedCatfish, fromSwipe = false) {
+            const p = currentProfile;
             const isCorrect = (guessedCatfish === p.isCatfish);
             
             playSound(sfxSwipe); 
             
-            card.style.transform = guessedCatfish ? 'translateX(-150%) rotate(-15deg)' : 'translateX(150%) rotate(15deg)';
+            if (fromSwipe) {
+                card.style.transform = guessedCatfish ? 'translateX(-250px) rotate(-30deg)' : 'translateX(250px) rotate(30deg)';
+            } else {
+                card.style.transform = guessedCatfish ? 'translateX(-150%) rotate(-15deg)' : 'translateX(150%) rotate(15deg)';
+            }
+            
             card.style.opacity = '0';
             
             setTimeout(() => {
@@ -523,8 +468,15 @@
                     score++;
                     updateHUD();
                     playSound(sfxCorrect); 
+
+                    // Spawn 1 or 2 static ads on successful turns after score 4 to clutter the screen
+                    if (score > 4) {
+                        let numAdsToSpawn = Math.random() > 0.5 ? 2 : 1;
+                        for(let i=0; i<numAdsToSpawn; i++){
+                            spawnStaticAd();
+                        }
+                    }
                     
-                    currentIndex++;
                     card.style.transition = 'none';
                     card.style.transform = 'translateX(0) rotate(0)';
                     loadProfile();
@@ -535,7 +487,6 @@
                     playSound(sfxWrong); 
                     
                     verdictTitle.innerText = failTitles[Math.floor(Math.random() * failTitles.length)];
-                    
                     verdictGif.src = failGifs[Math.floor(Math.random() * failGifs.length)];
                     verdictGif.style.display = 'block';
 
@@ -568,13 +519,60 @@
                 finalRoast.innerText = getFinalRoast(score);
                 gameOverScreen.style.display = 'flex';
             } else {
-                currentIndex++;
                 card.style.transition = 'none';
                 card.style.transform = 'translateX(0) rotate(0)';
                 loadProfile();
                 card.style.opacity = '1';
                 card.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
             }
+        }
+
+        // --- DRAG TO SWIPE MECHANICS ---
+        let isDragging = false;
+        let startX = 0;
+        let currentX = 0;
+        const swipeThreshold = 100; 
+
+        card.addEventListener('mousedown', dragStart);
+        card.addEventListener('touchstart', dragStart, {passive: true});
+        
+        document.addEventListener('mousemove', dragMove);
+        document.addEventListener('touchmove', dragMove, {passive: false});
+        
+        document.addEventListener('mouseup', dragEnd);
+        document.addEventListener('touchend', dragEnd);
+
+        function dragStart(e) {
+            if (verdictScreen.style.display === 'flex' || gameOverScreen.style.display === 'flex') return;
+            isDragging = true;
+            startX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+            card.style.transition = 'none'; 
+        }
+
+        function dragMove(e) {
+            if (!isDragging) return;
+            currentX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+            let diffX = currentX - startX;
+            let rotate = diffX * 0.05; 
+            card.style.transform = `translateX(${diffX}px) rotate(${rotate}deg)`;
+        }
+
+        function dragEnd() {
+            if (!isDragging) return;
+            isDragging = false;
+            let diffX = currentX - startX;
+            card.style.transition = 'transform 0.3s ease, opacity 0.3s ease'; 
+            
+            if (diffX > swipeThreshold) {
+                makeGuess(false, true); 
+            } else if (diffX < -swipeThreshold) {
+                makeGuess(true, true);
+            } else {
+                card.style.transform = 'translateX(0) rotate(0)';
+            }
+            
+            startX = 0; 
+            currentX = 0;
         }
 
         window.onload = startGame;
