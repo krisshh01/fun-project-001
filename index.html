@@ -68,22 +68,6 @@
         .fake-ad.corner-ad h3 { font-size: 1.1rem; margin-bottom: 5px; }
         .fake-ad.corner-ad p { font-size: 0.85rem; margin: 5px 0 10px 0; }
         .fake-ad.corner-ad .fake-ad-btn { padding: 6px 12px; font-size: 0.9rem; border-width: 3px; }
-
-        /* DYNAMIC STATIC ADS CSS (They just sit there and multiply) */
-        .fake-ad.static-ad {
-            top: 0;
-            left: 0;
-            transform: none;
-            width: 200px;
-            border: 4px solid #ffffff;
-            padding: 10px;
-            z-index: 9999; 
-            border-style: solid;
-        }
-        
-        .fake-ad.static-ad h3 { font-size: 1.2rem; margin: 0 0 5px 0; animation: flashWarning 0.1s infinite alternate; }
-        .fake-ad.static-ad p { font-size: 0.9rem; margin: 5px 0; line-height: 1.2; text-shadow: 1px 1px 0px #000; }
-        .fake-ad.static-ad .fake-ad-btn { padding: 8px 15px; font-size: 1rem; border-width: 2px; }
         
         .fake-ad h3 { font-size: 1.8rem; font-weight: 900; text-transform: uppercase; animation: flashWarning 0.3s infinite alternate; margin-bottom: 10px; }
         .fake-ad.right h3 { animation: flashNeon 0.2s infinite alternate; }
@@ -139,6 +123,43 @@
         .overlay-btn-next { background: linear-gradient(45deg, #4a90e2, #63a4ff); box-shadow: 0 8px 20px rgba(74, 144, 226, 0.35); }
         .rank-display { font-size: 1.4rem; color: #fe3c72; font-weight: 700; margin: 15px 0 10px 0; padding: 12px 20px; border: 3px solid #fe3c72; border-radius: 15px; background: #fff; box-shadow: 0 8px 20px rgba(254, 60, 114, 0.15); }
         .final-roast { font-size: 1rem; font-style: italic; color: #666; margin-bottom: 25px; padding: 0 10px; }
+
+        /* FAKE PAYWALL */
+        .paywall-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 100; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white; padding: 20px; backdrop-filter: blur(5px); }
+        .paywall-overlay h2 { color: gold; margin-bottom: 10px; font-size: 2rem; font-family: "Comic Sans MS", cursive; }
+        .paywall-overlay p { margin-bottom: 25px; font-size: 1.1rem; line-height: 1.4; }
+        .paywall-btn { background: #4a90e2; color: white; padding: 15px 30px; border: 3px solid #fff; border-radius: 10px; font-size: 1.2rem; font-weight: bold; cursor: pointer; animation: pulseBtn 1s infinite alternate; text-transform: uppercase; }
+
+        /* BSOD NUCLEAR GAME OVER */
+        .bsod-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #0000aa; z-index: 999999; display: none; flex-direction: column; padding: 10%; color: white; font-family: 'Courier New', Courier, monospace; cursor: none; text-align: left; overflow: hidden; }
+        .bsod-overlay h1 { background: white; color: #0000aa; display: inline-block; padding: 2px 10px; font-size: 1.5rem; margin-bottom: 20px; font-weight: bold; }
+        .bsod-overlay p { font-size: 1.2rem; margin-bottom: 15px; line-height: 1.5; }
+
+        /* NEW SPAM POPUP */
+        #catfishSpam {
+            display: none;
+            position: fixed;
+            top: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #25d366; /* WhatsApp Green */
+            color: white;
+            padding: 15px 25px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            z-index: 99999;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            animation: slideDownPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            white-space: nowrap;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        @keyframes slideDownPop {
+            0% { top: -50px; opacity: 0; transform: translateX(-50%) scale(0.8); }
+            100% { top: 15%; opacity: 1; transform: translateX(-50%) scale(1); }
+        }
     </style>
 </head>
 <body>
@@ -151,12 +172,12 @@
         <span class="fake-ad-btn">MEET THEM!</span>
     </a>
 
-    <!-- FAKE SKETCHY AD 2 -->
+    <!-- FAKE SKETCHY AD 2 (UPDATED) -->
     <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="fake-ad right">
-        <h3>💊 MAKE IT BIGGER! 💊</h3>
-        <p>DOCTORS HATE HIM! Grow 5 inches with ONE WEIRD TRICK!</p>
+        <h3>⚡ GAIN THE POWER OF MJOLNIR! ⚡</h3>
+        <p>DOCTORS HATE HIM! Lift the hammer with ONE WEIRD TRICK!</p>
         <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg" alt="Weird Trick" class="fake-ad-img" draggable="false" referrerpolicy="no-referrer">
-        <span class="fake-ad-btn">CLICK TO GROW!</span>
+        <span class="fake-ad-btn">BECOME WORTHY!</span>
     </a>
     
     <!-- FAKE SKETCHY AD 3 (Streak 5) -->
@@ -198,16 +219,28 @@
             <button class="overlay-btn overlay-btn-next" onclick="nextProfile()">Keep Swiping ➡️</button>
         </div>
 
-        <div class="overlay" id="gameOverScreen">
-            <h2 style="color: #111;">Busted! 🛑</h2>
-            <div class="rank-display">
-                Final Streak: <span id="finalScore">0</span><br>
-                <span id="finalRank" style="font-size: 1.1rem; color: #555;">Rank</span>
-            </div>
-            <p class="final-roast" id="finalRoast">Roast goes here</p>
-            <button class="overlay-btn" onclick="startGame()">Play Again 🔄</button>
+        <!-- Fake Paywall (Inside .app-container) -->
+        <div class="paywall-overlay" id="paywallScreen">
+            <h2>💎 OUT OF SWIPES 💎</h2>
+            <p>You have reached your daily limit! Pay 500 Tinder Coins to unlock 5 more swipes.</p>
+            <button class="paywall-btn" onclick="bypassPaywall()">Close</button>
         </div>
     </div>
+
+    <!-- BSOD Game Over (Outside .app-container) -->
+    <div class="bsod-overlay" id="bsodScreen" onclick="location.reload()">
+        <div>
+            <h1>Windows</h1>
+            <p>A fatal exception 0E has occurred at 0028:C0011E36 in VXD VMM(01) + 00010E36. The current application will be terminated.</p>
+            <p>* Your bank routing numbers have been successfully transmitted to a remote server.</p>
+            <p>* Your webcam is currently active and broadcasting.</p>
+            <p>* C:\Windows\System32 is being formatted...</p>
+            <p>Press any key to accept your fate, or click to reboot.</p>
+        </div>
+    </div>
+
+    <!-- FIXED URL: Removed /thumb/ sizing parameter completely -->
+    <a href="https://upload.wikimedia.org/wikipedia/commons/6/66/The_Leaning_Tower_of_Pisa_SB.jpeg" target="_blank" id="catfishSpam"></a>
 
     <script>
         // --- SOUND EFFECTS ---
@@ -242,6 +275,12 @@
             "https://images.unsplash.com/photo-1554151228-14d9def656e4?w=300&q=80"  
         ];
 
+        const spamMessages = [
+            "💬 Click here to unlock my private folder 🤫🌶️",
+            "💬 U up? Send me 5$ for a surprise 🍑👀",
+            "💬 Hot singles in your area want to chat 🥵🔥"
+        ];
+
         const baseTemplates = [
             // LEVEL 1: EASY 
             { difficulty: 1, name: "Sarah", age: 24, img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&q=80", bio: "Nursing student just looking for a guy who loves dogs and pizza.", isCatfish: false, reason: "Simple, highly specific local hobbies are usually a safe bet." },
@@ -267,6 +306,7 @@
             { difficulty: 3, name: "Ava", age: 24, img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=500&q=80", bio: "If you start the conversation with 'hey', I am blocking you. Tell me your favorite conspiracy theory.", isCatfish: false, reason: "Intense vetting requirements usually mean she's tired of bots herself." },
             { difficulty: 3, name: "Morgan", age: 27, img: "https://images.unsplash.com/photo-1557053910-d9eadeed1c58?w=500&q=80", bio: "Yes, I know I look like a bot. No, I will not add your WhatsApp. I just want to go to a museum.", isCatfish: false, reason: "Highly self-aware profile addressing the exact red flags you're looking for." },
             { difficulty: 3, name: "Riley", age: 23, img: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=500&q=80", bio: "I don't really know what to put here. Just ask me.", isCatfish: false, reason: "Lazy? Yes. A bot? No. Bots usually have highly optimized, link-heavy bios." },
+            { difficulty: 3, name: "1999 Honda Civic", age: 24, img: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=500&q=80", bio: "Reliable, low maintenance, and I always get you where you need to go. Just looking for someone to change my oil.", isCatfish: false, reason: "It is literally a car, but the bio reflects honest, realistic expectations." },
             { difficulty: 3, name: "Taylor", age: 29, img: "https://images.unsplash.com/photo-1514315384763-ba401779410f?w=500&q=80", bio: "I am unapologetically high maintenance about my pasta. Deal with it.", isCatfish: false, reason: "Weird flexes about food are a hallmark of genuine human profiles." },
             { difficulty: 3, name: "Sophia", age: 26, img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&q=80", bio: "Fintech consultant & blockchain enthusiast. I believe in working smart, not hard. Always looking to network with like-minded individuals building their portfolios.", isCatfish: true, reason: "Using words like 'network' and 'portfolios' on a dating app is the modern pig-butchering scammer's introduction." },
             { difficulty: 3, name: "Maya", age: 25, img: "https://images.unsplash.com/photo-1509967419530-da38b4704bc6?w=500&q=80", bio: "I don't get notifications on here! Tinder is acting so glitchy today. Add my WhatsApp +44 7911 123456 so we don't lose touch.", isCatfish: true, reason: "The 'app is glitching' excuse to move you to WhatsApp (with a sketchy area code) is a massive red flag." },
@@ -275,6 +315,7 @@
 
             // LEVEL 4: EXTREME (DIABOLICAL)
             { difficulty: 4, name: "Amanda", age: 26, img: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=500&q=80", bio: "If you don't have a boat, don't bother. Send me a super like so I know you're serious. IG: @amanda_xo", isCatfish: false, reason: "She's not a bot, she's just incredibly entitled and farming Instagram followers. Unfortunately, a real human." },
+            { difficulty: 4, name: "Toaster", age: 4, img: "https://images.unsplash.com/photo-1590740924040-75b48bcffdb5?w=500&q=80", bio: "Things might get heated, but I always pop up when you need me.", isCatfish: false, reason: "A perfectly fine household appliance with no ulterior motive to steal your crypto." },
             { difficulty: 4, name: "Sam", age: 24, img: "https://images.unsplash.com/photo-1514315384763-ba401779410f?w=500&q=80", bio: "Slightly addicted to iced coffee and spending too much money at Target. What's your worst habit?", isCatfish: true, reason: "Bots now scrape highly relatable, mundane bios and use stolen candid selfies to look perfectly average." },
             { difficulty: 4, name: "Lauren", age: 29, img: "https://images.unsplash.com/photo-1557053910-d9eadeed1c58?w=500&q=80", bio: "Finance girlie. I can probably fix your portfolio over a glass of wine. Looking for a high-value man.", isCatfish: false, reason: "Actually a real finance bro-ette looking for a specific lifestyle, not a pig-butchering scammer." },
             { difficulty: 4, name: "Megan", age: 23, img: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&q=80", bio: "Swipe right if you're going to actually plan a date. So tired of pen pals and fake profiles on here.", isCatfish: true, reason: "Scammers use reverse-psychology to sound frustrated with dating apps, making them seem authentic." },
@@ -314,45 +355,11 @@
         const verdictMessage = document.getElementById('verdictMessage');
         const verdictGif = document.getElementById('verdictGif');
         
-        const gameOverScreen = document.getElementById('gameOverScreen');
-        const finalScore = document.getElementById('finalScore');
-        const finalRank = document.getElementById('finalRank');
-        const finalRoast = document.getElementById('finalRoast');
-
         const ad3 = document.getElementById('ad3');
         const hotSingleImg = document.getElementById('hotSingleImg');
-
-        // Dynamic STATIC Ads System (They just sit there and multiply)
-        let staticAds = [];
-
-        function spawnStaticAd() {
-            const adEl = document.createElement('a');
-            adEl.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-            adEl.target = "_blank";
-            adEl.className = "fake-ad static-ad";
-            
-            // 4 Distinct types of popups
-            const adTypes = [
-                { bg: "#ff0000", border: "#ffffff", title: "🚨 VIRUS! 🚨", desc: "Your hard drive is being deleted!", btn: "FIX NOW" },
-                { bg: "#ffff00", border: "#ff0000", title: "🎁 YOU WON! 🎁", desc: "Claim your free iPhone 15 Pro!", btn: "CLAIM" },
-                { bg: "#ff00ff", border: "#00ff00", title: "💬 1 MESSAGE", desc: "Ashley (2 miles away) sent a pic!", btn: "VIEW" },
-                { bg: "#0000ff", border: "#ffff00", title: "⚠️ SYSTEM 32 ⚠️", desc: "Memory failure! Download more RAM!", btn: "DOWNLOAD" }
-            ];
-            
-            let type = adTypes[Math.floor(Math.random() * adTypes.length)];
-            
-            adEl.innerHTML = `<h3 style="color: ${type.border};">${type.title}</h3><p style="color: white; font-size: 0.95rem;">${type.desc}</p><span class="fake-ad-btn" style="padding: 5px 15px; font-size: 1rem;">${type.btn}</span>`;
-            adEl.style.backgroundColor = type.bg;
-            adEl.style.borderColor = type.border;
-            
-            let startX = Math.random() * (window.innerWidth - 220);
-            let startY = Math.random() * (window.innerHeight - 150);
-            adEl.style.left = startX + 'px';
-            adEl.style.top = startY + 'px';
-            
-            document.body.appendChild(adEl);
-            staticAds.push(adEl);
-        }
+        const paywallScreen = document.getElementById('paywallScreen');
+        const bsodScreen = document.getElementById('bsodScreen');
+        const catfishSpam = document.getElementById('catfishSpam');
 
         function shuffle(array) {
             let cur = array.length, rand;
@@ -402,20 +409,8 @@
             updateAds(); 
         }
 
-        function getRankString(finalScore) {
-            if (finalScore <= 2) return "Freshly Catfished 🤡";
-            if (finalScore <= 5) return "Gullible Guppy 🐟";
-            if (finalScore <= 9) return "Tinder Trainee 📱";
-            if (finalScore <= 15) return "Skeptical Salmon 🍣";
-            return "Certified Catfish Detective 🕵️‍♀️";
-        }
-
-        function getFinalRoast(score) {
-            if (score === 0) return '"Did you even open your eyes while playing?"';
-            if (score <= 3) return '"You are a scammer\'s absolute dream come true."';
-            if (score <= 7) return '"You survived for a bit, but your wallet is still empty."';
-            if (score <= 12) return '"Not terrible, but I still wouldn\'t trust you with my credit card."';
-            return '"Okay fine, you actually have some street smarts."';
+        function bypassPaywall() {
+            paywallScreen.style.display = 'none';
         }
 
         function startGame() {
@@ -424,13 +419,10 @@
             currentDifficulty = 1;
             currentPool = [];
             
-            // Clear all the static spam ads on restart
-            staticAds.forEach(ad => ad.remove());
-            staticAds = [];
-            
             updateHUD();
-            gameOverScreen.style.display = 'none';
+            bsodScreen.style.display = 'none';
             verdictScreen.style.display = 'none';
+            paywallScreen.style.display = 'none';
             
             card.style.opacity = '1';
             card.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
@@ -469,12 +461,8 @@
                     updateHUD();
                     playSound(sfxCorrect); 
 
-                    // Spawn 1 or 2 static ads on successful turns after score 4 to clutter the screen
-                    if (score > 4) {
-                        let numAdsToSpawn = Math.random() > 0.5 ? 2 : 1;
-                        for(let i=0; i<numAdsToSpawn; i++){
-                            spawnStaticAd();
-                        }
+                    if (score >= 5 && Math.random() < 0.25) {
+                        paywallScreen.style.display = 'flex';
                     }
                     
                     card.style.transition = 'none';
@@ -485,6 +473,19 @@
                 } else {
                     lives--;
                     playSound(sfxWrong); 
+
+                    if (p.isCatfish && !guessedCatfish) {
+                        let msgIndex = 2 - lives;
+                        if (msgIndex < 0) msgIndex = 0;
+                        if (msgIndex > 2) msgIndex = 2;
+
+                        catfishSpam.innerText = spamMessages[msgIndex];
+                        catfishSpam.style.display = 'block';
+                        
+                        setTimeout(() => {
+                            catfishSpam.style.display = 'none';
+                        }, 10000); 
+                    }
                     
                     verdictTitle.innerText = failTitles[Math.floor(Math.random() * failTitles.length)];
                     verdictGif.src = failGifs[Math.floor(Math.random() * failGifs.length)];
@@ -514,10 +515,7 @@
             
             if (lives <= 0) {
                 playSound(sfxGameOver); 
-                finalScore.innerText = score;
-                finalRank.innerText = getRankString(score);
-                finalRoast.innerText = getFinalRoast(score);
-                gameOverScreen.style.display = 'flex';
+                bsodScreen.style.display = 'flex';
             } else {
                 card.style.transition = 'none';
                 card.style.transform = 'translateX(0) rotate(0)';
@@ -543,7 +541,7 @@
         document.addEventListener('touchend', dragEnd);
 
         function dragStart(e) {
-            if (verdictScreen.style.display === 'flex' || gameOverScreen.style.display === 'flex') return;
+            if (verdictScreen.style.display === 'flex' || bsodScreen.style.display === 'flex' || paywallScreen.style.display === 'flex') return;
             isDragging = true;
             startX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
             card.style.transition = 'none'; 
