@@ -172,7 +172,7 @@
         <span class="fake-ad-btn">MEET THEM!</span>
     </a>
 
-    <!-- FAKE SKETCHY AD 2 (UPDATED) -->
+    <!-- FAKE SKETCHY AD 2 -->
     <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="fake-ad right">
         <h3>⚡ GAIN THE POWER OF MJOLNIR! ⚡</h3>
         <p>DOCTORS HATE HIM! Lift the hammer with ONE WEIRD TRICK!</p>
@@ -219,7 +219,7 @@
             <button class="overlay-btn overlay-btn-next" onclick="nextProfile()">Keep Swiping ➡️</button>
         </div>
 
-        <!-- Fake Paywall (Inside .app-container) -->
+        <!-- Fake Paywall -->
         <div class="paywall-overlay" id="paywallScreen">
             <h2>💎 OUT OF SWIPES 💎</h2>
             <p>You have reached your daily limit! Pay 500 Tinder Coins to unlock 5 more swipes.</p>
@@ -227,7 +227,7 @@
         </div>
     </div>
 
-    <!-- BSOD Game Over (Outside .app-container) -->
+    <!-- BSOD Game Over -->
     <div class="bsod-overlay" id="bsodScreen" onclick="location.reload()">
         <div>
             <h1>Windows</h1>
@@ -239,7 +239,7 @@
         </div>
     </div>
 
-    <!-- FIXED URL: Removed /thumb/ sizing parameter completely -->
+    <!-- LINK -->
     <a href="https://upload.wikimedia.org/wikipedia/commons/6/66/The_Leaning_Tower_of_Pisa_SB.jpeg" target="_blank" id="catfishSpam"></a>
 
     <script>
@@ -281,46 +281,31 @@
             "💬 Hot singles in your area want to chat 🥵🔥"
         ];
 
+        // --- EXTREMELY HARD TEMPLATES ---
         const baseTemplates = [
-            // LEVEL 1: EASY 
-            { difficulty: 1, name: "Sarah", age: 24, img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&q=80", bio: "Nursing student just looking for a guy who loves dogs and pizza.", isCatfish: false, reason: "Simple, highly specific local hobbies are usually a safe bet." },
-            { difficulty: 1, name: "Emily", age: 27, img: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500&q=80", bio: "Hiker, baker, and professional napper. Let's get coffee.", isCatfish: false, reason: "Boring but structurally perfect for a real human." },
-            { difficulty: 1, name: "Jessica", age: 25, img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&q=80", bio: "Kindergarten teacher. If you can't handle my puns, swipe left.", isCatfish: false, reason: "Dad-joke warnings are standard genuine profile material." },
-            { difficulty: 1, name: "Chloe", age: 29, img: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&q=80", bio: "I try to keep my houseplants alive. Mostly failing.", isCatfish: false, reason: "Self-deprecating humor about mundane things is a green flag." },
-            { difficulty: 1, name: "Niran", age: 23, img: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=500&q=80", bio: "Hello dear, I am currently stuck overseas and my bank account is frozen. If you send me $500 in iTunes gift cards, I will repay you $50,000.", isCatfish: true, reason: "The golden rule: Banks do not accept Apple Store credit!" },
-            { difficulty: 1, name: "Victoria", age: 24, img: "https://images.unsplash.com/photo-1500336624523-d727130c3328?w=500&q=80", bio: "I just inherited a gold mine in my home country but I need help paying the customs fee. Will marry whoever helps me.", isCatfish: true, reason: "This is a classic Advance-Fee (419) scam. Nobody gives away a literal gold mine on a dating app." },
-            { difficulty: 1, name: "Kimi", age: 24, img: "https://images.unsplash.com/photo-1513207565459-d7f36bfa1222?w=500&q=80", bio: "Looking for an honest sugar baby. Just send a $50 clearance fee to my cashapp so I can trust you.", isCatfish: true, reason: "Sugar scams always ask YOU to send a 'clearance fee' first." },
-            { difficulty: 1, name: "Aisha", age: 26, img: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=500&q=80", bio: "I am a princess in exile. I have 10 million dollars trapped in a trust fund. I need a US citizen to help me transfer it.", isCatfish: true, reason: "The oldest trick in the internet playbook." },
+            // LEVEL 1: TRICKY
+            { difficulty: 1, name: "Jessica", age: 24, img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&q=80", bio: "I have a weird obsession with string cheese. Also, my cat hates me but I love her anyway. The Office quotes get you bonus points.", isCatfish: true, reason: "Scammers scrape highly relatable, well-performing bios from real users and pair them with stolen candid photos to bypass AI detection." },
+            { difficulty: 1, name: "David", age: 29, img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=500&q=80", bio: "Finance & real estate. Driven, ambitious, always looking for the next big opportunity. Let's talk investments over a nice dinner.", isCatfish: false, reason: "He sounds like a crypto scammer, but this is just an incredibly generic finance bro looking to network. Real, unfortunately." },
+            { difficulty: 1, name: "Chloe", age: 22, img: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&q=80", bio: "Never on here. I don't check this app. DM me on IG @chloe_vibes and let's see if we vibe 🌴✈️", isCatfish: false, reason: "She's not a catfish, she's a real human who is just using you for Instagram engagement. You still lose, but she's real." },
+            { difficulty: 1, name: "Emily", age: 26, img: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500&q=80", bio: "So sick of the fake profiles on here. I just want a normal guy who can hold a conversation. Let's grab a coffee. (Not looking for penpals).", isCatfish: true, reason: "Pig-butchering scammers use reverse psychology, claiming to hate scammers to build immediate trust before introducing crypto." },
 
-            // LEVEL 2: MEDIUM 
-            { difficulty: 2, name: "Jess", age: 25, img: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=500&q=80", bio: "Software engineer. I promise I can fix your Wi-Fi, but I will charge you in tacos.", isCatfish: false, reason: "She mentions 'charging' you, but as a relatable joke. Tacos are the universal dating app currency." },
-            { difficulty: 2, name: "Zoe", age: 25, img: "https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=500&q=80", bio: "I run my own online business. Send me $5 for coffee. Kidding! But seriously, let's get a drink this weekend.", isCatfish: false, reason: "Joking about money is risky, but the context makes it clearly a playful icebreaker leading to a real date." },
-            { difficulty: 2, name: "Lily", age: 26, img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&q=80", bio: "Professional model, amateur gamer. Yes, my photos are heavily edited. Let's just play Helldivers.", isCatfish: false, reason: "Disarms the 'too pretty to be real' suspicion by openly and bluntly acknowledging her job." },
-            { difficulty: 2, name: "Rachel", age: 28, img: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=500&q=80", bio: "Not looking for a pen pal. Let's grab coffee today. If you take more than 24 hours to reply, I'm unmatching.", isCatfish: false, reason: "A bit aggressive, but this is a very typical, genuine human frustration with dating app flakiness." },
-            { difficulty: 2, name: "Bella", age: 22, img: "https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=500&q=80", bio: "Living life to the fullest! ✨ I love traveling and fine dining. I'm not on here much, so shoot me a message on IG @bella_luxx99 to see if we vibe.", isCatfish: true, reason: "Seems normal at first, but redirecting to an Instagram with a 'luxx' handle immediately is a classic follower-farming bot." },
-            { difficulty: 2, name: "Lexi", age: 21, img: "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?w=500&q=80", bio: "Fitness enthusiast. Just a fun girl looking for some excitement. 🌶️ Bored at home right now, check my linktree to see what I'm up to.", isCatfish: true, reason: "She's not looking for a date. 'Bored at home' combined with a link is an auto-swiping bot selling premium content." },
-            { difficulty: 2, name: "Madison", age: 27, img: "https://images.unsplash.com/photo-1521119989659-a83eee488004?w=500&q=80", bio: "Currently serving overseas. It gets incredibly lonely out here. Just looking for a genuine connection with someone back home before my deployment ends.", isCatfish: true, reason: "Phase 1 of a Military Romance scam. They build trust for weeks before suddenly needing funds for a 'secure comms line'." },
-            { difficulty: 2, name: "Elena", age: 28, img: "https://images.unsplash.com/photo-1554151228-14d9def656e4?w=500&q=80", bio: "My phone broke and I am locked out of my banking app! Can you please venmo me $40 for an uber home? I'll pay you back double tomorrow.", isCatfish: true, reason: "The 'Stranded' scam. Using an AI-perfect portrait to guilt-trip strangers into sending quick cash." },
+            // LEVEL 2: DECEPTIVE
+            { difficulty: 2, name: "Sarah", age: 25, img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&q=80", bio: "I love traveling, listening to music, and eating good food. Family is very important to me. Looking for my partner in crime.", isCatfish: false, reason: "It sounds completely generated by ChatGPT, but millions of people just genuinely write incredibly boring, generic bios." },
+            { difficulty: 2, name: "Mia", age: 23, img: "https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=500&q=80", bio: "Hi! I just moved to the city and live alone, so I'm super paranoid about meeting strangers. Let's meet up, but please just verify you aren't a creep on this link first.", isCatfish: true, reason: "The 'Verification Scam'. They use a perfectly valid fear to guilt you into clicking a phishing link that steals your credit card." },
+            { difficulty: 2, name: "Jason", age: 28, img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&q=80", bio: "I am a highly sophisticated AI language model trained by OpenAI. Just kidding, I'm a software dev.", isCatfish: false, reason: "Self-aware tech joke. A real developer making a terrible dad joke." },
+            { difficulty: 2, name: "Anna", age: 27, img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&q=80", bio: "I work at the hospital and my shifts are crazy right now. Let's text instead so I don't miss your message! 323-555-0198", isCatfish: true, reason: "Immediately pushing you to SMS with a sob story about being busy is a classic tactic to harvest phone numbers before the app bans them." },
 
-            // LEVEL 3: HARD 
-            { difficulty: 3, name: "Ava", age: 24, img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=500&q=80", bio: "If you start the conversation with 'hey', I am blocking you. Tell me your favorite conspiracy theory.", isCatfish: false, reason: "Intense vetting requirements usually mean she's tired of bots herself." },
-            { difficulty: 3, name: "Morgan", age: 27, img: "https://images.unsplash.com/photo-1557053910-d9eadeed1c58?w=500&q=80", bio: "Yes, I know I look like a bot. No, I will not add your WhatsApp. I just want to go to a museum.", isCatfish: false, reason: "Highly self-aware profile addressing the exact red flags you're looking for." },
-            { difficulty: 3, name: "Riley", age: 23, img: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=500&q=80", bio: "I don't really know what to put here. Just ask me.", isCatfish: false, reason: "Lazy? Yes. A bot? No. Bots usually have highly optimized, link-heavy bios." },
-            { difficulty: 3, name: "1999 Honda Civic", age: 24, img: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=500&q=80", bio: "Reliable, low maintenance, and I always get you where you need to go. Just looking for someone to change my oil.", isCatfish: false, reason: "It is literally a car, but the bio reflects honest, realistic expectations." },
-            { difficulty: 3, name: "Taylor", age: 29, img: "https://images.unsplash.com/photo-1514315384763-ba401779410f?w=500&q=80", bio: "I am unapologetically high maintenance about my pasta. Deal with it.", isCatfish: false, reason: "Weird flexes about food are a hallmark of genuine human profiles." },
-            { difficulty: 3, name: "Sophia", age: 26, img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&q=80", bio: "Fintech consultant & blockchain enthusiast. I believe in working smart, not hard. Always looking to network with like-minded individuals building their portfolios.", isCatfish: true, reason: "Using words like 'network' and 'portfolios' on a dating app is the modern pig-butchering scammer's introduction." },
-            { difficulty: 3, name: "Maya", age: 25, img: "https://images.unsplash.com/photo-1509967419530-da38b4704bc6?w=500&q=80", bio: "I don't get notifications on here! Tinder is acting so glitchy today. Add my WhatsApp +44 7911 123456 so we don't lose touch.", isCatfish: true, reason: "The 'app is glitching' excuse to move you to WhatsApp (with a sketchy area code) is a massive red flag." },
-            { difficulty: 3, name: "Anna", age: 28, img: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=500&q=80", bio: "Entrepreneur. I love spontaneous trips, good wine, and talking about market trends. What's your biggest investment?", isCatfish: true, reason: "Asking about 'market trends' and 'your biggest investment' right in the bio is how crypto scammers profile your wealth." },
-            { difficulty: 3, name: "Harper", age: 22, img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&q=80", bio: "Just moved here for modeling! Looking for a cute tour guide. But for my safety, please verify yourself on this completely random background check link first.", isCatfish: true, reason: "The 'Verification Scam'. The link will ask for your credit card to 'prove your identity'." },
+            // LEVEL 3: DIABOLICAL
+            { difficulty: 3, name: "Olivia", age: 25, img: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=500&q=80", bio: "Going to a wedding next month and need a plus one. Must know how to dance and not be a serial killer.", isCatfish: true, reason: "Another scraped bio. Scammers steal highly specific, situational bios to appear as authentic as possible." },
+            { difficulty: 3, name: "Lauren", age: 21, img: "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?w=500&q=80", bio: "CashApp me $5 and see what happens 😇", isCatfish: false, reason: "Looks like a scam bot, but this is an actual, cynical trend real people do on Tinder to farm $5 from desperate swipers." },
+            { difficulty: 3, name: "1999 Honda Civic", age: 24, img: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=500&q=80", bio: "Reliable, low maintenance, and I always get you where you need to go. Just looking for someone to change my oil.", isCatfish: false, reason: "It is literally a car. Meme profiles are created by real, bored humans." },
+            { difficulty: 3, name: "Elena", age: 26, img: "https://images.unsplash.com/photo-1554151228-14d9def656e4?w=500&q=80", bio: "Oops, this app is acting so glitchy today and my messages won't send! Add my WhatsApp +44 7911 123456", isCatfish: true, reason: "The 'app is glitching' excuse to move you to WhatsApp (with a sketchy international area code) is a massive red flag." },
 
-            // LEVEL 4: EXTREME (DIABOLICAL)
-            { difficulty: 4, name: "Amanda", age: 26, img: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=500&q=80", bio: "If you don't have a boat, don't bother. Send me a super like so I know you're serious. IG: @amanda_xo", isCatfish: false, reason: "She's not a bot, she's just incredibly entitled and farming Instagram followers. Unfortunately, a real human." },
+            // LEVEL 4: IMPOSSIBLE
+            { difficulty: 4, name: "Taylor", age: 29, img: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=500&q=80", bio: "Looking for an ambitious partner. I consult for blockchain startups and love discussing macroeconomics and market trends.", isCatfish: false, reason: "Reads EXACTLY like a pig-butchering scammer, but occasionally you actually just stumble upon a real, insufferable crypto consultant." },
             { difficulty: 4, name: "Toaster", age: 4, img: "https://images.unsplash.com/photo-1590740924040-75b48bcffdb5?w=500&q=80", bio: "Things might get heated, but I always pop up when you need me.", isCatfish: false, reason: "A perfectly fine household appliance with no ulterior motive to steal your crypto." },
-            { difficulty: 4, name: "Sam", age: 24, img: "https://images.unsplash.com/photo-1514315384763-ba401779410f?w=500&q=80", bio: "Slightly addicted to iced coffee and spending too much money at Target. What's your worst habit?", isCatfish: true, reason: "Bots now scrape highly relatable, mundane bios and use stolen candid selfies to look perfectly average." },
-            { difficulty: 4, name: "Lauren", age: 29, img: "https://images.unsplash.com/photo-1557053910-d9eadeed1c58?w=500&q=80", bio: "Finance girlie. I can probably fix your portfolio over a glass of wine. Looking for a high-value man.", isCatfish: false, reason: "Actually a real finance bro-ette looking for a specific lifestyle, not a pig-butchering scammer." },
-            { difficulty: 4, name: "Megan", age: 23, img: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&q=80", bio: "Swipe right if you're going to actually plan a date. So tired of pen pals and fake profiles on here.", isCatfish: true, reason: "Scammers use reverse-psychology to sound frustrated with dating apps, making them seem authentic." },
-            { difficulty: 4, name: "Kayla", age: 21, img: "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?w=500&q=80", bio: "CashApp me $5 and see what happens 😇", isCatfish: false, reason: "Looks like a scam, but this is an actual, cynical trend real people do on Tinder to farm $5 from desperate swipers." },
-            { difficulty: 4, name: "Olivia", age: 25, img: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=500&q=80", bio: "Honestly just looking for someone to text while I'm at work. Hit me up.", isCatfish: true, reason: "Simple, relatable, but used by romance scammers to build a quick texting habit before asking for favors." }
+            { difficulty: 4, name: "Sam", age: 24, img: "https://images.unsplash.com/photo-1514315384763-ba401779410f?w=500&q=80", bio: "I don't really know what to put here lol. Ask me anything.", isCatfish: true, reason: "Bots now intentionally use lazy, low-effort bios to bypass text-analysis filters and mimic the average, uninspired dating app user." },
+            { difficulty: 4, name: "Madison", age: 27, img: "https://images.unsplash.com/photo-1521119989659-a83eee488004?w=500&q=80", bio: "Currently deployed overseas, hoping to find a genuine connection to text with for when I get back to the states.", isCatfish: true, reason: "Phase 1 of a Military Romance scam. They build trust for weeks via text before suddenly needing funds for a 'secure comms line'." }
         ];
 
         const catfishRoasts = [
